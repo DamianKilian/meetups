@@ -37,7 +37,3 @@ app.component('example-component', ExampleComponent);
  */
 
 app.mount('#app');
-
-console.debug('app.js');//mmmyyy
-console.debug(window.ppp);//mmmyyy
-console.debug($('body'));//mmmyyy
