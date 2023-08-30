@@ -5,6 +5,8 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'available_locales' => array('pl', 'en'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
