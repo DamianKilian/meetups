@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->except(['index', 'changeLocale']);
     }
 
     /**
@@ -21,7 +21,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('home');
     }
@@ -30,10 +30,16 @@ class HomeController extends Controller
     {
         return view('about-us');
     }
-    
+
     public function contact()
     {
         return view('contact');
     }
-    
+
+    public function changeLocale(Request $request)
+    {
+        $routeParameters = json_decode(urldecode($request->routeParameters), true);
+        $routeParameters['__locale'] = $request->__locale;
+        return redirect()->route($request->currentRouteName, $routeParameters);
+    }
 }

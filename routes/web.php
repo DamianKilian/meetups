@@ -1,7 +1,7 @@
 <?php
 
 use App\Services\AppService;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,28 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-
-
-
-
-
-
-
-
-// localized routes
-
 AppService::setLocaleFromPrefix();
-Route::group(['prefix' => '{locale}'], function () {
-    Route::get(Lang::get('routes.home'), [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get(Lang::get('routes.about-us'), [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('about-us');
-    Route::get(Lang::get('routes.contact'), [App\Http\Controllers\HomeController::class, 'contact'])->name('about-us');
+
+Route::group(['prefix' => '{__locale}'], function () {
+    Auth::routes();
+    Route::get('change-locale/{currentRouteName}', [App\Http\Controllers\HomeController::class, 'changeLocale'])->name('change-locale');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get(AppService::trans('about-us'), [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('about-us');
+    Route::get(AppService::trans('contact'), [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 });
-Route::redirect(Lang::get('routes.home'), 'en/' . Lang::get('routes.home'));
-Route::redirect(Lang::get('routes.about-us'), 'en/' . Lang::get('routes.about-us'));
-Route::redirect(Lang::get('routes.contact'), 'en/' . Lang::get('routes.contact'));
+
+$locale = Cookie::get('locale') ?: request()->getDefaultLocale();
+
+Route::redirect('/', "/$locale");
