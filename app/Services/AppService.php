@@ -24,7 +24,7 @@ class AppService
     public static function trans($key)
     {
         $locale = app()->getLocale();
-        if (Config::get('app.locale') === $locale) {
+        if (request()->getDefaultLocale() === $locale) {
             return $key;
         }
         $trans = json_decode(file_get_contents(base_path() . "/resources/lang/routes/$locale.json"), true);

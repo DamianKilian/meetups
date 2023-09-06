@@ -14,9 +14,12 @@ import { createApp } from 'vue';
  */
 
 const app = createApp({});
+app.config.globalProperties.__ = window.__;
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
+import MeetupsFinder from './components/MeetupsFinder.vue';
+app.component('meetups-finder', MeetupsFinder);
 
 /**
  * The following block of code may be used to automatically register your
