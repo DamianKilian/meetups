@@ -1,3 +1,8 @@
 {
+    "Select gender": "Wybierz płeć",
+    "Male": "Mężczyzna",
+    "Female": "Kobieta",
+    "Gender": "Płeć",
+    "Birth date": "Data urodznia",
     "Dashboard": "Panel"
 }

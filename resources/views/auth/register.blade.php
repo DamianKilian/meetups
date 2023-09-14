@@ -40,6 +40,40 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="birthDate"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Birth date') }}</label>
+                            <div class="col-md-6">
+                                <input id="birthDate" type="date"
+                                    class="form-control @error('birthDate') is-invalid @enderror" name="birthDate"
+                                    value="{{ old('birthDate') }}">
+                                @error('birthDate')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="gender"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
+                            <div class="col-md-6">
+                                <select name="gender" class="form-select @error('gender') is-invalid @enderror"
+                                    value="{{ old('gender') }}" id="floatingSelect"
+                                    aria-label="Floating label select example">
+                                    <option value="">{{ __('Select gender') }}</option>
+                                    <option value="male">{{ __('Male') }}</option>
+                                    <option value="female">{{ __('Female') }}</option>
+                                </select>
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
