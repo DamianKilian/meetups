@@ -12,6 +12,11 @@ class UserPanelController extends Controller
         $this->middleware('auth');
     }
 
+    public function userPanel()
+    {
+        return view('user-panel');
+    }
+
     public function updateUser(Request $request, User $user)
     {
         $request->validate([
