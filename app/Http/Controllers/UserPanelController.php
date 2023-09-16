@@ -17,8 +17,9 @@ class UserPanelController extends Controller
         return view('user-panel');
     }
 
-    public function updateUser(Request $request, User $user)
+    public function updateUser(Request $request)
     {
+        $user = auth()->user();
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email,'.$user->id,

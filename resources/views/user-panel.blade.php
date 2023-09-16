@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('User panel') }}: {{ auth()->user()->name }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('update-user', ['user' => auth()->user()->id]) }}">
+                        <form method="POST" action="{{ route('update-user') }}">
                             @csrf
 
                             <div class="row mb-3">
