@@ -82,6 +82,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('user-panel') }}">{{ __('User panel') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -100,6 +101,11 @@
         </nav>
 
         <main class="py-4">
+            @if (Session::has('message'))
+                <div class="alert {{ Session::get('alert-class', 'alert-success') }}" role="alert">
+                    {{ Session::get('message') }}
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>
@@ -113,7 +119,7 @@
     @php
         $locale = app()->getLocale();
     @endphp
-    @if(request()->getDefaultLocale() !== $locale)
+    @if (request()->getDefaultLocale() !== $locale)
         @vite("resources/js/trans/$locale.js")
     @endif
     @vite(['resources/js/app.js'])

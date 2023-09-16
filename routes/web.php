@@ -23,6 +23,8 @@ Route::group(['prefix' => '{__locale}'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get(AppService::trans('about-us'), [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('about-us');
     Route::get(AppService::trans('contact'), [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+    Route::get(AppService::trans('user-panel'), [App\Http\Controllers\UserPanelController::class, 'userPanel'])->name('user-panel');
+    Route::post('update-user/{user}', [App\Http\Controllers\UserPanelController::class, 'updateUser'])->name('update-user');
 });
 
 $locale = Cookie::get('locale') ?: request()->getDefaultLocale();
