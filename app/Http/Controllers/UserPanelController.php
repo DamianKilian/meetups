@@ -34,7 +34,7 @@ class UserPanelController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email,'.$user->id,
             'birthDate' => 'date|nullable',
-            'gender' => 'in:male,female,nullable',
+            'gender' => 'in:male,female|nullable',
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
