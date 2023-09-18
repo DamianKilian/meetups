@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\ChangePassRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserPanelController extends Controller
 {
@@ -12,6 +13,15 @@ class UserPanelController extends Controller
         $this->middleware('auth');
     }
 
+    public function changePass(ChangePassRequest $request)
+    {
+        $user = auth()->user();
+        $user->password = Hash::make($request->get('newPassword'));
+        $user->save();
+        $request->session()->flash('message', __('User password changed'));
+        return redirect()->back();
+    }
+    
     public function userPanel()
     {
         return view('user-panel');

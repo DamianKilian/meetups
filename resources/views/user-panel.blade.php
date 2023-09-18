@@ -97,32 +97,45 @@
                 <div class="card">
                     <div class="card-header">{{ __('Change password') }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('update-user', ['user' => auth()->user()->id]) }}">
+                        <form method="POST" action="{{ route('change-pass') }}">
                             @csrf
                             <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
+                                <label for="currentPassword"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Current password') }}</label>
                                 <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password">
+                                    <input id="currentPassword" type="password"
+                                        class="form-control @error('currentPassword') is-invalid @enderror"
+                                        name="currentPassword" required autocomplete="new-password">
 
-                                    @error('password')
+                                    @error('currentPassword')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="row mb-3">
-                                <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                <label for="newPassword"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('New password') }}</label>
+                                <div class="col-md-6">
+                                    <input id="newPassword" type="password"
+                                        class="form-control @error('newPassword') is-invalid @enderror"
+                                        name="newPassword" required autocomplete="new-password">
+
+                                    @error('newPassword')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="newPasswordConfirm"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm new password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password">
+                                    <input id="newPasswordConfirm" type="password" class="form-control"
+                                        name="newPassword_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
                             <div class="row mb-0">
