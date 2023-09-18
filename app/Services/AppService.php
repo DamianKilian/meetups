@@ -11,12 +11,12 @@ class AppService
     public static function setLocaleFromPrefix()
     {
         $segment1 = request()->segment(1);
-        // $segment1 must be locale (must be in 'app.available_locales')
         if (in_array($segment1, Config::get('app.available_locales'))) {
             app()->setLocale($segment1);
             Cookie::queue('locale', $segment1, 576000, '/');
         } elseif ($segment1) {
-            abort(404);
+            // abort(404);
+            return;
         }
         URL::defaults(['__locale' => app()->getLocale()]);
     }
