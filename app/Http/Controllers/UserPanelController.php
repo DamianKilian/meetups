@@ -28,6 +28,9 @@ class UserPanelController extends Controller
             ->when($request->email, function (Builder $query, string $email) {
                 $query->where('email', $email);
             })
+            ->when($request->gender, function (Builder $query, string $gender) {
+                $query->where('gender', $gender);
+            })
             ->limit(5)
             ->get();
         return response()->json($users);

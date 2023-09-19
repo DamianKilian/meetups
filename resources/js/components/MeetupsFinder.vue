@@ -11,6 +11,14 @@
                 <input class="form-control" id="email" name="email" placeholder="name@example.com">
                 <div class="form-text">{{ __('Email of a user') }}</div>
             </div>
+            <div class="mb-3">
+                <input name="gender" type="radio" class="btn-check" id="none" value="" autocomplete="off" checked>
+                <label class="btn btn-secondary me-1" for="none">None</label> 
+                <input name="gender" type="radio" class="btn-check" id="male" value="male" autocomplete="off">
+                <label class="btn btn-secondary me-1" for="male">Male</label> 
+                <input name="gender" type="radio" class="btn-check" id="female" value="female" autocomplete="off">
+                <label class="btn btn-secondary" for="female">Female</label> 
+            </div>
             <button type="submit" class="btn btn-primary">{{ __('Find') }}</button>
         </form>
     </div>
@@ -40,13 +48,12 @@ export default {
         find(e) {
             e.preventDefault();
             var formData = new FormData(document.getElementById('findMeetups'));
-            console.debug(formData);//mmmyyy
             axios
                 .post(this.findMeetupsUrl, formData)
                 .then((response) => {
                     this.meetups = response.data;
                 }).catch((error) => {
-                    console.log(error);//mmmyyy
+                    console.log(error);
                 });
         },
     },
