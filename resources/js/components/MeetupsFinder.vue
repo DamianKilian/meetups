@@ -4,7 +4,12 @@
             <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Name') }}</label>
                 <input class="form-control" id="name" name="name">
-                <div id="emailHelp" class="form-text">{{ __('Name of a user') }}</div>
+                <div class="form-text">{{ __('Name of a user') }}</div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">{{ __('Email') }}</label>
+                <input class="form-control" id="email" name="email" placeholder="name@example.com">
+                <div class="form-text">{{ __('Email of a user') }}</div>
             </div>
             <button type="submit" class="btn btn-primary">{{ __('Find') }}</button>
         </form>

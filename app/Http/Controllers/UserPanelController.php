@@ -18,10 +18,17 @@ class UserPanelController extends Controller
 
     public function findMeetups(Request $request)
     {
-        $users = User::select(['name', 'email', 'created_at', 'gender', 'birth_date'])->where('name', $request->name)
-            ->when(Auth::check(), function (Builder $query, string $role) {
-                $query->whereNotIn('id', [Auth::id()]);
+        $users = User::select(['name', 'email', 'created_at', 'gender', 'birth_date'])
+            ->when(Auth::id(), function (Builder $query, int $id) {
+                $query->whereNotIn('id', [$id]);
             })
+            ->when($request->name, function (Builder $query, string $name) {
+                $query->where('name', $name);
+            })
+            ->when($request->email, function (Builder $query, string $email) {
+                $query->where('email', $email);
+            })
+            ->limit(5)
             ->get();
         return response()->json($users);
     }
