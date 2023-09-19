@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <div class="card-body">
-                    <meetups-finder></meetups-finder>
+                    <meetups-finder find-meetups-url={{ route('find-meetups') }}></meetups-finder>
                 </div>
             </div>
         </div>
