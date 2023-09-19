@@ -13,11 +13,22 @@
             </div>
             <div class="mb-3">
                 <input name="gender" type="radio" class="btn-check" id="none" value="" autocomplete="off" checked>
-                <label class="btn btn-secondary me-1" for="none">None</label> 
+                <label class="btn btn-secondary me-1" for="none">{{ __('None') }}</label>
                 <input name="gender" type="radio" class="btn-check" id="male" value="male" autocomplete="off">
-                <label class="btn btn-secondary me-1" for="male">Male</label> 
+                <label class="btn btn-secondary me-1" for="male">{{ __('Male') }}</label>
                 <input name="gender" type="radio" class="btn-check" id="female" value="female" autocomplete="off">
-                <label class="btn btn-secondary" for="female">Female</label> 
+                <label class="btn btn-secondary" for="female">{{ __('Female') }}</label>
+            </div>
+            <div class="row mb-3 gx-0 text-center">
+                <label class="form-label text-start">{{ __('Birth date') }}</label>
+                <label for="fromBirthDate" class="col-sm-1 col-form-label">{{ __('From') }}: </label>
+                <div class="col">
+                    <input name="fromBirthDate" type="date" class="form-control" aria-label="First name">
+                </div>
+                <label for="toBirthDate" class="col-sm-1 col-form-label">{{ __('To') }}: </label>
+                <div class="col">
+                    <input name="toBirthDate" type="date" class="form-control" aria-label="Last name">
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">{{ __('Find') }}</button>
         </form>

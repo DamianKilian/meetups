@@ -31,6 +31,12 @@ class UserPanelController extends Controller
             ->when($request->gender, function (Builder $query, string $gender) {
                 $query->where('gender', $gender);
             })
+            ->when($request->fromBirthDate, function (Builder $query, string $fromBirthDate) {
+                $query->whereDate('birth_date', '>=', $fromBirthDate);
+            })
+            ->when($request->toBirthDate, function (Builder $query, string $toBirthDate) {
+                $query->whereDate('birth_date', '<=', $toBirthDate);
+            })
             ->limit(5)
             ->get();
         return response()->json($users);
