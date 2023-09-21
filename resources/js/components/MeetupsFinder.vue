@@ -1,6 +1,8 @@
 <template>
     <div>
-        <form @submit="find" id="findMeetups">
+        <i :class="{ 'text-success': showFormSett }" class="p-2 mt-n2 me-n2 fa-solid fa-sliders float-end formSett"
+            @click="showFormSett = !showFormSett"></i>
+        <form @submit="find" id="findMeetups" v-if="showFormSett">
             <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Name') }}</label>
                 <input class="form-control" id="name" name="name">
@@ -30,7 +32,9 @@
                     <input name="toBirthDate" type="date" class="form-control" aria-label="Last name">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">{{ __('Find') }}</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">{{ __('Find') }}</button>
+            </div>
         </form>
     </div>
     <div class="mt-3">
@@ -52,7 +56,8 @@ export default {
     props: ['findMeetupsUrl'],
     data() {
         return {
-            meetups: null
+            meetups: null,
+            showFormSett: true
         }
     },
     methods: {
@@ -67,6 +72,9 @@ export default {
                     console.log(error);
                 });
         },
+        formSettToggle(e) {
+
+        }
     },
     mounted() {
         console.log('Component mounted.')
