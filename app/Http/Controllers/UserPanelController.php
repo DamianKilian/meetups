@@ -23,7 +23,9 @@ class UserPanelController extends Controller
                 $query->whereNotIn('id', [$id]);
             })
             ->when($request->name, function (Builder $query, string $name) {
-                $query->where('name', 'like', "%$name%");
+                if (2 < strlen($name)) {
+                    $query->where('name', 'like', "%$name%");
+                }
             })
             ->when($request->email, function (Builder $query, string $email) {
                 $query->where('email', $email);
