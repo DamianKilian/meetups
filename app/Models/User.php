@@ -41,6 +41,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
