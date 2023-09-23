@@ -20,6 +20,8 @@ import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 import MeetupsFinder from './components/MeetupsFinder.vue';
 app.component('meetups-finder', MeetupsFinder);
+import DropFile from './components/DropFile.vue';
+app.component('drop-file', DropFile);
 
 /**
  * The following block of code may be used to automatically register your
