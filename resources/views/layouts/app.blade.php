@@ -81,6 +81,11 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if (auth()->user()->profile_photo)
+                                        <img id="profilePhoto" src="{{ asset('storage/' . auth()->user()->profile_photo) }}">
+                                    @else
+                                        <i class="fa-solid fa-user"></i>
+                                    @endif
                                     {{ Auth::user()->name }}
                                 </a>
 
