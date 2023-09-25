@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birthDate' => ['date', 'nullable'],
             'gender' => ['in:male,female', 'nullable'],
+            'profilePhoto' => ['image', 'max:1024'],
         ]);
     }
 
@@ -66,12 +67,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = request();
+        if ($request->hasFile('profilePhoto')) {
+            $profilePhoto = $request->file('profilePhoto')->store('profilePhoto', 'public');
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'birth_date' => $data['birthDate'],
             'gender' => $data['gender'],
+            'profile_photo' => $profilePhoto ?? null,
         ]);
     }
 }
