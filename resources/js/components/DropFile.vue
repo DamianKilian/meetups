@@ -2,7 +2,7 @@
     <label class="col-md-4 col-form-label text-md-end">{{ __('Profile photo') }}</label>
     <div class="fileUploadWrapper col-md-6">
         <div class="area">
-            <input type="file" name="profilePhoto" @drop="drop" ref="file" />
+            <input type="file" name="profilePhoto" @change="change" ref="file" />
         </div>
         <img v-if="file" class="preview-img" :src="fileSrc" />
         <div v-if="file" class="info">
@@ -21,13 +21,13 @@ export default {
         };
     },
     methods: {
-        removePhoto(e) {
+        removePhoto() {
             this.$refs.file.value = null;
             this.file = null;
             console.debug('removePhoto');//mmmyyy
         },
-        drop(e) {
-            this.file = e.dataTransfer.files[0];
+        change() {
+            this.file = this.$refs.file.files[0];
             this.generateURL();
         },
         generateURL() {
