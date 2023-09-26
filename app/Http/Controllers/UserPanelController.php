@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserPanelController extends Controller
 {
@@ -71,7 +72,29 @@ class UserPanelController extends Controller
         $user->email = $request->email;
         $user->birth_date = $request->birthDate;
         $user->gender = $request->gender;
+        $newProfilePhotoName = '';
+        if (!$request->profilePhotoNotEmpty) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+            $user->profile_photo = null;
+        } elseif ($request->hasFile('profilePhoto')) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+            $newProfilePhotoName = $request->file('profilePhoto')->hashName();
+            $user->profile_photo = "profilePhoto/$newProfilePhotoName";
+        }
+
         $user->save();
+
+        if ($newProfilePhotoName) {
+            $request->file('profilePhoto')->storeAs(
+                'profilePhoto',
+                $newProfilePhotoName,
+                'public'
+            );
+        }
         $request->session()->flash('message', __('User data updated'));
         // $request->session()->flash('alert-class', 'alert-danger');
         return redirect()->back();

@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('User panel') }}: {{ auth()->user()->name }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('update-user') }}">
+                        <form method="POST" action="{{ route('update-user') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
@@ -25,7 +25,18 @@
                                     @enderror
                                 </div>
                             </div>
-
+                            @php
+                                $profilePhoto = auth()->user()->profile_photo;
+                                if($profilePhoto){
+                                    $fileProp = [
+                                        'file' => (object)[],
+                                        'fileSrc' => asset("storage/$profilePhoto"),
+                                    ];
+                                }else{
+                                    $fileProp = [];
+                                }
+                            @endphp
+                            <drop-file @if($fileProp) :file-prop="{{ json_encode($fileProp) }}" @endif profile-photo-err="@error('profilePhoto') {{ $message }} @enderror"></drop-file>
                             <div class="row mb-3">
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>

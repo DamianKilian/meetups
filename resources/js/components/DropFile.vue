@@ -6,7 +6,8 @@
                 <input type="file" name="profilePhoto" @change="change" ref="file" />
             </div>
             <img v-if="file" class="preview-img" :src="fileSrc" />
-            <div v-if="file" class="info">
+            <input type="hidden" name="profilePhotoNotEmpty" :value="file? '1':''" />
+            <div v-if="file && file.name" class="info">
                 {{ file.name }} ({{ Math.round(file.size / 1000) + "kb" }})
             </div>
             <i class="fa-regular fa-circle-xmark removePhoto" v-if="file" @click="removePhoto"></i>
@@ -24,18 +25,26 @@
   
 <script>
 export default {
-    props: ['profilePhotoErr'],
+    props: {
+        profilePhotoErr: String,
+        fileProp: {
+            type: Object,
+            default: {
+                file: null,
+                fileSrc: ''
+            }
+        },
+    },
     data() {
         return {
-            file: null,
-            fileSrc: '',
+            file: this.fileProp.file,
+            fileSrc: this.fileProp.fileSrc,
         };
     },
     methods: {
         removePhoto() {
             this.$refs.file.value = null;
             this.file = null;
-            console.debug('removePhoto');//mmmyyy
         },
         change() {
             this.file = this.$refs.file.files[0];
@@ -48,7 +57,7 @@ export default {
             }, 1000);
             this.fileSrc = fileSrc;
         },
-    },
+    }
 };
 </script>
   
