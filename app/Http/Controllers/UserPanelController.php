@@ -19,7 +19,7 @@ class UserPanelController extends Controller
 
     public function findMeetups(Request $request)
     {
-        $users = User::select(['name', 'email', 'created_at', 'gender', 'birth_date'])
+        $users = User::select(['name', 'email', 'created_at', 'gender', 'birth_date', 'profile_photo'])
             ->when(Auth::id(), function (Builder $query, int $id) {
                 $query->whereNotIn('id', [$id]);
             })
@@ -42,6 +42,9 @@ class UserPanelController extends Controller
             })
             ->limit(5)
             ->get();
+        foreach ($users as $user) {
+            $user->profile_photo = $user->profile_photo ? asset(asset('storage/' . $user->profile_photo)) : null;
+        }
         return response()->json($users);
     }
 

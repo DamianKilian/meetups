@@ -40,12 +40,19 @@
     <div class="mt-3">
         <h3>{{ __('Search results') }}:</h3>
         <div>
-            <div v-for="(meetup, index) in meetups" class="border-top py-3">
-                <div><b>{{ __('Name') }}: </b>{{ meetup.name }}</div>
-                <div><b>{{ __('Email') }}: </b>{{ meetup.email }}</div>
-                <div><b>{{ __('Gender') }}: </b>{{ __(ucfirst(meetup.gender)) }}</div>
-                <div><b>{{ __('Birth date') }}: </b>{{ meetup.birth_date }}</div>
-                <div><b>{{ __('Account from') }}: </b>{{ meetup.created_at }}</div>
+            <div v-for="(meetup, index) in meetups" class="border-top py-3 container">
+                <div class="row">
+                    <div class="col-2"><img v-if="meetup.profile_photo" :src="meetup.profile_photo" class="w-100"/></div>
+                    <div class="col-7">
+                        <div><b>{{ __('Name') }}: </b>{{ meetup.name }}</div>
+                        <div><b>{{ __('Email') }}: </b>{{ meetup.email }}</div>
+                        <div><b>{{ __('Gender') }}: </b>{{ __(ucfirst(meetup.gender)) }}</div>
+                        <div><b>{{ __('Birth date') }}: </b>{{ meetup.birth_date }}</div>
+                    </div>
+                    <div class="col-3">
+                        <div><b>{{ __('Account from') }}: </b>{{ meetup.created_at }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,7 +80,7 @@ export default {
                 });
         },
         ucfirst(str) {
-            if(str){
+            if (str) {
                 return str[0].toUpperCase() + str.slice(1);
             }
         }
