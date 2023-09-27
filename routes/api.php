@@ -18,5 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('find-meetups', [App\Http\Controllers\UserPanelController::class, 'findMeetups'])->name('find-meetups');
-
+Route::post('find-meetups', [App\Http\Controllers\HomeController::class, 'findMeetups'])->name('find-meetups');

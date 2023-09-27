@@ -17,37 +17,6 @@ class UserPanelController extends Controller
         $this->middleware('auth')->except(['findMeetups']);
     }
 
-    public function findMeetups(Request $request)
-    {
-        $users = User::select(['name', 'email', 'created_at', 'gender', 'birth_date', 'profile_photo'])
-            ->when(Auth::id(), function (Builder $query, int $id) {
-                $query->whereNotIn('id', [$id]);
-            })
-            ->when($request->name, function (Builder $query, string $name) {
-                if (2 < strlen($name)) {
-                    $query->where('name', 'like', "%$name%");
-                }
-            })
-            ->when($request->email, function (Builder $query, string $email) {
-                $query->where('email', $email);
-            })
-            ->when($request->gender, function (Builder $query, string $gender) {
-                $query->where('gender', $gender);
-            })
-            ->when($request->fromBirthDate, function (Builder $query, string $fromBirthDate) {
-                $query->whereDate('birth_date', '>=', $fromBirthDate);
-            })
-            ->when($request->toBirthDate, function (Builder $query, string $toBirthDate) {
-                $query->whereDate('birth_date', '<=', $toBirthDate);
-            })
-            ->limit(5)
-            ->get();
-        foreach ($users as $user) {
-            $user->profile_photo = $user->profile_photo ? asset(asset('storage/' . $user->profile_photo)) : null;
-        }
-        return response()->json($users);
-    }
-
     public function changePass(ChangePassRequest $request)
     {
         $user = auth()->user();
