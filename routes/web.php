@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('update-user', [App\Http\Controllers\UserPanelController::class, 'updateUser'])->name('update-user');
 Route::post('change-pass', [App\Http\Controllers\UserPanelController::class, 'changePass'])->name('change-pass');
-Route::post('find-meetups', [App\Http\Controllers\UserPanelController::class, 'findMeetups'])->name('find-meetups');
 
 AppService::setLocaleFromPrefix();
 
