@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown">
+    <div class="dropdown customSelect">
         <button @click="getRegions" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             {{ region.name }}
