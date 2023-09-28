@@ -11,7 +11,7 @@ class UserPanelController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['findMeetups']);
+        $this->middleware('auth');
     }
 
     public function changePass(ChangePassRequest $request)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Region;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -11,12 +12,12 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'changeLocale']);
+        $this->middleware('auth')->except(['index', 'changeLocale', 'getRegions', 'findMeetups']);
     }
 
-    public function getRegions(Request $request)
+    public function getRegions()
     {
-        
+        return response()->json(Region::select(['id', 'name'])->get());
     }
 
     public function findMeetups(Request $request)

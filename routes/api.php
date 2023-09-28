@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('find-meetups', [App\Http\Controllers\HomeController::class, 'findMeetups'])->name('find-meetups');
+Route::post('get-regions', [App\Http\Controllers\HomeController::class, 'getRegions'])->name('get-regions');

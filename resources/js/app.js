@@ -22,6 +22,8 @@ import MeetupsFinder from './components/MeetupsFinder.vue';
 app.component('meetups-finder', MeetupsFinder);
 import DropFile from './components/DropFile.vue';
 app.component('drop-file', DropFile);
+import CustomSelect from './components/CustomSelect.vue';
+app.component('custom-select', CustomSelect);
 
 /**
  * The following block of code may be used to automatically register your
