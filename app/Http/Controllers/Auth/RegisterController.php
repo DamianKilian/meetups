@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'birthDate' => ['date', 'nullable'],
             'gender' => ['in:male,female', 'nullable'],
             'profilePhoto' => ['image', 'max:1024'],
+            'region' => ['nullable'],
         ]);
     }
 
@@ -78,6 +79,7 @@ class RegisterController extends Controller
             'birth_date' => $data['birthDate'],
             'gender' => $data['gender'],
             'profile_photo' => $profilePhoto ?? null,
+            'region_id' => $data['region'],
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePassRequest;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,10 @@ class UserPanelController extends Controller
 
     public function userPanel()
     {
-        return view('user-panel');
+        $regionJson = Region::select(['name', 'id'])->where('id', auth()->user()->region_id)->first()->toJson();
+        return view('user-panel', [
+            'regionJson' => $regionJson,
+        ]);
     }
 
     public function updateUser(Request $request)
@@ -36,11 +40,13 @@ class UserPanelController extends Controller
             'email' => 'required|string|email|unique:users,email,' . $user->id,
             'birthDate' => 'date|nullable',
             'gender' => 'in:male,female|nullable',
+            'region' => 'nullable',
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->birth_date = $request->birthDate;
         $user->gender = $request->gender;
+        $user->region_id = $request->region;
         $newProfilePhotoName = '';
         if (!$request->profilePhotoNotEmpty) {
             if ($user->profile_photo) {

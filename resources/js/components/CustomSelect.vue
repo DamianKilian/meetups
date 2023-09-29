@@ -13,13 +13,15 @@
                         class="fa-solid fa-spinner fa-pulse"></i></a></li>
         </ul>
     </div>
-    <imput type="hidden" name="region" :value="region.id" />
+    <input type="hidden" name="region" :value="region.id" />
 </template>
 
 <script>
 export default {
     props: {
         getRegionsUrl: String,
+        oldRegionId: String,
+        regionProp: Object,
     },
     data() {
         return {
@@ -29,12 +31,32 @@ export default {
         }
     },
     methods: {
+        setRegion() {
+            if (this.oldRegionId) {
+                this.region.id = this.oldRegionId;
+                if (typeof (Storage) !== "undefined") {
+                    if (sessionStorage.oldRegionName) {
+                        this.region.name = sessionStorage.oldRegionName;
+                    } else {
+                        this.region.name = '';
+                    }
+                } else {
+                    this.region.name = '';
+                }
+            } else if(this.regionProp){
+                this.region = this.regionProp;
+            }
+        },
         selectRegion(e) {
             var regionId = e.target.dataset.regionId;
+            var regionName = e.target.dataset.regionName;
             if ('undefined' === typeof regionId) {
                 return;
             }
-            this.region = { name: e.target.dataset.regionName, id: regionId };
+            this.region = { name: regionName, id: regionId };
+            if (!this.regionProp && typeof (Storage) !== "undefined") {
+                sessionStorage.oldRegionName = regionName;
+            }
         },
         getRegions() {
             if (this.gettingRegions) {
@@ -50,6 +72,9 @@ export default {
                     console.log(error);
                 });
         }
+    },
+    mounted() {
+        this.setRegion();
     }
 }
 </script>
