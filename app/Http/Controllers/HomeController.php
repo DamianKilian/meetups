@@ -43,8 +43,8 @@ class HomeController extends Controller
             ->when($request->toBirthDate, function (Builder $query, string $toBirthDate) {
                 $query->whereDate('birth_date', '<=', $toBirthDate);
             })
-            ->when($request->regionId, function (Builder $query, string $regionId) {
-                $query->where('region_id', $regionId);
+            ->when($request->region, function (Builder $query, string $region) {
+                $query->where('region_id', $region);
             })
             ->limit(5)
             ->get();
