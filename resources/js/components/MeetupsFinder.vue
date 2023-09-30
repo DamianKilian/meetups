@@ -86,6 +86,9 @@ export default {
                 .post(this.findMeetupsUrl, formData)
                 .then((response) => {
                     this.meetups = response.data;
+                    if(this.meetups.length){
+                        this.showFormSett = false;
+                    }
                 }).catch((error) => {
                     console.log(error);
                 });
