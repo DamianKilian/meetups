@@ -46,8 +46,9 @@ class HomeController extends Controller
             ->when($request->region, function (Builder $query, string $region) {
                 $query->where('region_id', $region);
             })
-            ->limit(5)
-            ->get();
+            ->paginate(5)
+            ->onEachSide(3)
+        ;
         foreach ($users as $user) {
             $user->profile_photo = $user->profile_photo ? asset(asset('storage/' . $user->profile_photo)) : null;
         }
