@@ -40,27 +40,17 @@
     </div>
     <div class="mt-3">
         <h3>{{ __('Search results') }}:</h3>
-        <div>
-            <div v-for="(meetup, index) in meetups" class="border-top py-3 container">
-                <div class="row">
-                    <div class="col-2"><img v-if="meetup.profile_photo" :src="meetup.profile_photo" class="w-100" /></div>
-                    <div class="col-7">
-                        <div><b>{{ __('Name') }}: </b>{{ meetup.name }}</div>
-                        <div><b>{{ __('Email') }}: </b>{{ meetup.email }}</div>
-                        <div><b>{{ __('Gender') }}: </b>{{ __(ucfirst(meetup.gender)) }}</div>
-                        <div><b>{{ __('Birth date') }}: </b>{{ meetup.birth_date }}</div>
-                    </div>
-                    <div class="col-3">
-                        <div><b>{{ __('Account from') }}: </b>{{ meetup.created_at }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Pagination :paginationData="paginationData" :find="find" />
     </div>
 </template>
 
 <script>
+import Pagination from './Pagination.vue';
+
 export default {
+    components: {
+        Pagination
+    },
     props: {
         findMeetupsUrl: String,
         getRegionsUrl: String,
@@ -74,29 +64,29 @@ export default {
     },
     data() {
         return {
+            formData: null,
+            paginationData: null,
             meetups: null,
             showFormSett: true
         }
     },
     methods: {
-        find(e) {
+        find(e, url) {
             e.preventDefault();
-            var formData = new FormData(document.getElementById('findMeetups'));
+            if (!url) {
+                url = this.findMeetupsUrl;
+                this.formData = new FormData(document.getElementById('findMeetups'));
+            }
             axios
-                .post(this.findMeetupsUrl, formData)
+                .post(url, this.formData)
                 .then((response) => {
-                    this.meetups = response.data;
-                    if(this.meetups.length){
+                    this.paginationData = response.data;
+                    if (response.data.data.length) {
                         this.showFormSett = false;
                     }
                 }).catch((error) => {
                     console.log(error);
                 });
-        },
-        ucfirst(str) {
-            if (str) {
-                return str[0].toUpperCase() + str.slice(1);
-            }
         }
     }
 }
