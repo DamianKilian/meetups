@@ -72,7 +72,9 @@ export default {
     },
     methods: {
         find(e, url) {
-            e.preventDefault();
+            if(e){
+                e.preventDefault();
+            }
             if (!url) {
                 url = this.findMeetupsUrl;
                 this.formData = new FormData(document.getElementById('findMeetups'));
