@@ -20,26 +20,20 @@
             </div>
         </div>
         <div>
-            <div v-for="(meetup) in paginationData.data" class="border-top py-3 container">
-                <div class="row">
-                    <div class="col-2"><img v-if="meetup.profile_photo" :src="meetup.profile_photo" class="w-100" /></div>
-                    <div class="col-7">
-                        <div><b>{{ __('Name') }}: </b>{{ meetup.name }}</div>
-                        <div><b>{{ __('Email') }}: </b>{{ meetup.email }}</div>
-                        <div><b>{{ __('Gender') }}: </b>{{ __(ucfirst(meetup.gender)) }}</div>
-                        <div><b>{{ __('Birth date') }}: </b>{{ meetup.birth_date }}</div>
-                    </div>
-                    <div class="col-3">
-                        <div><b>{{ __('Account from') }}: </b>{{ meetup.created_at }}</div>
-                    </div>
-                </div>
+            <div v-for="(meetup) in paginationData.data" class="border-top">
+                <User :meetup="meetup" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import User from './User.vue';
+
 export default {
+    components: {
+        User
+    },
     props: {
         find: {
             type: Function
@@ -64,11 +58,6 @@ export default {
             }
             this.goToPageErr = '';
             this.find(null, this.paginationData.first_page_url.replace('?page=1', '?page=' + page));
-        },
-        ucfirst(str) {
-            if (str) {
-                return str[0].toUpperCase() + str.slice(1);
-            }
         },
         isInt(str) {
             return /^\+?([1-9]\d*)$/.test(str);

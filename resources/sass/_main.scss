@@ -4,9 +4,19 @@
 .me-n2 {
     margin-right: -0.5rem !important;
 }
-#profilePhoto{
+#profilePhoto {
     height: 1.5rem;
 }
-.cursorPointer{
+.cursorPointer {
     cursor: pointer;
+}
+.talkIsOpen {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 10;
+    border: 3px solid green;
 }
