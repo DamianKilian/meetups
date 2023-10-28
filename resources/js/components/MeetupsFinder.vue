@@ -40,7 +40,8 @@
     </div>
     <div class="mt-3">
         <h3>{{ __('Search results') }}:</h3>
-        <Pagination :paginationData="paginationData" :find="find" />
+        <Pagination :privMessageUrl="privMessageUrl" :getPrivTalkUrl="getPrivTalkUrl"  :getPrivMessagesUrl="getPrivMessagesUrl" :paginationData="paginationData"
+            :find="find" />
     </div>
 </template>
 
@@ -54,6 +55,9 @@ export default {
     props: {
         findMeetupsUrl: String,
         getRegionsUrl: String,
+        privMessageUrl: String,
+        getPrivTalkUrl: String,
+        getPrivMessagesUrl: String,
         regionsProp: {
             type: Object,
             default: {
@@ -72,7 +76,7 @@ export default {
     },
     methods: {
         find(e, url) {
-            if(e){
+            if (e) {
                 e.preventDefault();
             }
             if (!url) {

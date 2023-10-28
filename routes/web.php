@@ -17,8 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('update-user', [App\Http\Controllers\UserPanelController::class, 'updateUser'])->name('update-user');
 Route::post('change-pass', [App\Http\Controllers\UserPanelController::class, 'changePass'])->name('change-pass');
+Route::post('priv-message', [App\Http\Controllers\UserPanelController::class, 'privMessage'])->name('priv-message');
+Route::post('get-priv-talk', [App\Http\Controllers\UserPanelController::class, 'getPrivTalk'])->name('get-priv-talk');
+Route::post('get-priv-messages', [App\Http\Controllers\UserPanelController::class, 'getPrivMessages'])->name('get-priv-messages');
 
-AppService::setLocaleFromPrefix();
+$urlsWithoutPrefix = [
+    'broadcasting/auth',
+];
+
+if(false === array_search(request()->path(), $urlsWithoutPrefix)){
+    AppService::setLocaleFromPrefix();
+}
 
 Route::group(['prefix' => '{__locale}'], function () {
     Auth::routes();

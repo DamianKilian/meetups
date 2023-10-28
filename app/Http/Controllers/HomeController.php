@@ -22,7 +22,7 @@ class HomeController extends Controller
 
     public function findMeetups(Request $request)
     {
-        $users = User::select(['name', 'email', 'created_at', 'gender', 'birth_date', 'profile_photo'])
+        $users = User::select(['id', 'name', 'email', 'created_at', 'gender', 'birth_date', 'profile_photo'])
             ->when(Auth::id(), function (Builder $query, int $id) {
                 $query->whereNotIn('id', [$id]);
             })

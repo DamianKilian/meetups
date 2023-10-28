@@ -21,7 +21,8 @@
         </div>
         <div>
             <div v-for="(meetup) in paginationData.data" class="border-top">
-                <User :meetup="meetup" />
+                <User :privMessageUrl="privMessageUrl" :getPrivTalkUrl="getPrivTalkUrl" :getPrivMessagesUrl="getPrivMessagesUrl"
+                    :meetup="meetup" />
             </div>
         </div>
     </div>
@@ -35,6 +36,9 @@ export default {
         User
     },
     props: {
+        getPrivTalkUrl: String,
+        getPrivMessagesUrl: String,
+        privMessageUrl: String,
         find: {
             type: Function
         },
